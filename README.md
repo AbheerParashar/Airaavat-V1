@@ -1,80 +1,104 @@
-# Airaavat-V1
-### Autonomous Unmanned Ground Vehicle
+🐘 Featured Project — Project Airaavat
 
-**Status: Active Development — Phase I (Motor Control)**
-**Developer: Abheer Parashar**
-**Institution: D.N. Polytechnic, Meerut | Electrical Engineering**
+A hardware-first UGV platform evolving toward autonomous systems.
 
----
+Airaavat-V1 is a functional ground vehicle through which I've worked across electric drivetrain design, mechanical fabrication, Li-ion power systems, embedded control and RF communication.
 
-## Objective
+[Explore Airaavat-V1 →]
 
-Airaavat-V1 is an indigenous autonomous UGV designed for
-reconnaissance and navigation applications. The project
-serves as the technical foundation for Airaavat Defence,
-Mobility and Energy Systems Ltd.
+# Project Airaavat — V1
 
-**Core capabilities (target):**
-- Closed-loop DC motor control (encoder + PID)
-- Ultrasonic and IR-based obstacle avoidance
-- Autonomous path navigation
-- Modular, field-serviceable chassis design
+**Hardware-first UGV platform for experimentation in electric mobility, embedded control and autonomous systems.**
 
----
+Project Airaavat-V1 is a ground vehicle prototype built to learn and validate systems engineering through physical implementation rather than simulation alone.
 
-## System Architecture
-[ Sensor Array ] → [ Microcontroller ] → [ Motor Driver ]
-Ultrasonic IR Arduino/STM32 H-Bridge PWM
-↓
-[ Encoder Feedback ]
-[ PID Controller ]
+## What V1 demonstrates
 
+- Custom mechanical chassis fabrication and iteration
+- Brushed-DC electric drivetrain
+- Jackshaft and sprocket-chain reduction
+- Ackermann steering
+- Custom Li-ion battery-pack construction with off-the-shelf BMS protection
+- Arduino-based embedded control
+- nRF24L01 wireless command link
+- Joystick-based throttle and steering
+- IBT-2 motor-driver interface
+- Physical ground-trial validation under load
 
----
+## V1 control architecture
 
-## Development Roadmap
+```text
+                    TRANSMITTER
+              +---------------------+
+Joystick ---->| Arduino UNO         |
+Throttle A0   |                     |
+Steering A1   |      nRF24L01       |
+              +----------+----------+
+                         |
+                    2.4 GHz RF
+                         |
+              +----------v----------+
+              | Arduino UNO         |  RECEIVER
+              |                     |
+              | nRF24L01            |
+              +----+-----------+----+
+                   |           |
+             PWM motor     Servo command
+              control       (Ackermann)
+                   |           |
+                IBT-2       Steering
+                   |
+              Drive motor
+```
 
-| Phase | Milestone | Status |
-|-------|-----------|--------|
-| I | DC motor closed-loop control | 🔄 In Progress |
-| II | Sensor integration (ultrasonic + IR) | ⏳ Pending |
-| III | Autonomous navigation algorithm | ⏳ Pending |
-| IV | Chassis fabrication + full integration | ⏳ Pending |
-| V | Field testing + documentation | ⏳ Pending |
+## Repository structure
 
----
+```text
+src/
+  TX/   # as-built transmitter firmware
+  RX/   # as-built receiver firmware
 
-## Technical Stack
+docs/
+  architecture.md
+  mechanical.md
+  electrical.md
+  embedded-control.md
+  testing.md
+  design-decisions.md
 
-- **Microcontroller:** Arduino Mega / STM32 (TBD)
-- **Motor Control:** H-Bridge, PWM, Encoder feedback
-- **Sensors:** HC-SR04 Ultrasonic, IR proximity
-- **Design Software:** SolidWorks, Proteus (simulation)
-- **Languages:** C/C++, Python
+media/
+  # project photographs, diagrams and trial footage references
+```
 
----
+## Important: as-built firmware
 
-## Documentation
+The firmware in `src/TX` and `src/RX` is the code supplied by the project author as the V1 implementation.
 
-- `/docs` — Design notes, circuit diagrams, calculations
-- `/hardware` — Component specifications and wiring diagrams
-- `/firmware` — Microcontroller code (updated as developed)
+It is intentionally preserved as an **as-built record**. It should not be silently replaced with a "better" or safety-hardened version because doing so would make the repository less useful as an engineering record.
 
----
+A separate future branch/version can introduce improvements such as:
 
-## About the Builder
+- RF-loss failsafe
+- watchdog timeout
+- constrained steering limits
+- smoother throttle mapping
+- packet validation
+- explicit motor-braking behaviour
+- telemetry
+- emergency-stop logic
 
-First-year Electrical Engineering student building
-defence-grade systems from a hostel room in Meerut.
-Acknowledged by engineers from Blue Origin, ex-Koenigsegg,
-ex-Rolls Royce, and Drivecore Mobility.
+## Current development direction
 
-*This is not a college project. This is a foundation.*
+Airaavat is intended to evolve from a manually controlled UGV toward a sensorized robotic platform. Future work may include an ESP32-based architecture, IMU integration, sensor fusion, obstacle detection, ROS 2 integration and autonomous navigation.
 
----
+Planned capabilities are **not represented as completed V1 capabilities**.
 
-**LinkedIn:** [Abheer Parashar](https://www.linkedin.com/in/abheer-parashar-752b9338a/)
+## Author
 
-© 2026 Abheer Parashar. All Rights Reserved. 
-Unauthorised use, reproduction or distribution of any 
-part of this project is strictly prohibited.
+**Abheer Parashar**  
+Electrical Engineering | Embedded Systems | Electric Powertrain | Robotics
+
+LinkedIn: [https://www.linkedin.com/in/abheer-parashar-752b9338a/]  
+GitHub: [https://github.com/AbheerParashar]
+
+> This repository is an engineering record and portfolio of Project Airaavat.
